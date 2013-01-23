@@ -6,6 +6,9 @@
 # Description:
 # Crops the status bar from iphone and ipad screenshots.
 #
+# Dependencies:
+# Requires ImageMagick to do the image processing.
+#
 # Directions:
 # Put all of your raw screenshot images into a folder.
 # Make sure they have the correct file prefixes for their device.
