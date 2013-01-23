@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+# Title:
+# cropStatusBar
+#
+# Description:
+# Crops the status bar from iphone and ipad screenshots.
+#
+# Directions:
+# Put all of your raw screenshot images into a folder.
+# Make sure they have the correct file prefixes for their device.
+# Run the script in the image directory.
+# It will crop the 40 pixel black top status bar from all of the images.  
+# It will overwrite the files.
+#
+# By: Will Riley
+#
+# Inspired By:
+# http://nali.org/imagemagick-batch-crop-and-rename-files/
+
+crop_statusbar_x_offset=0;
+crop_statusbar_y_offset=40;
+
+# 3.5 inch iphone
+iphone_3_5_file_prefix='iphone_3_5_';
+iphone_3_5_width=640;
+iphone_3_5_height=920;
+
+# 4 inch iphone
+iphone_4_file_prefix='iphone_4_';
+iphone_4_width=640;
+iphone_4_height=1096;
+
+# ipad
+ipad_file_prefix='ipad_';
+ipad_width=1536;
+ipad_height=2008;
+
+# remove status bar from 3.5 inch images
+filelist=`ls | grep ${iphone_3_5_file_prefix}`
+for image_file in $filelist
+do
+  echo $image_file
+  convert $image_file -crop ${iphone_3_5_width}x${iphone_3_5_height}+${crop_statusbar_x_offset}+${crop_statusbar_y_offset} $image_file
+done
+
+# remove status bar from 4 inch images
+filelist=`ls | grep ${iphone_4_file_prefix}`
+for image_file in $filelist
+do
+  echo $image_file
+  convert $image_file -crop ${iphone_4_width}x${iphone_4_height}+${crop_statusbar_x_offset}+${crop_statusbar_y_offset} $image_file
+done
+
+# remove status bar from ipad images
+filelist=`ls | grep ${ipad_file_prefix}`
+for image_file in $filelist
+do
+  echo $image_file
+  convert $image_file -crop ${ipad_width}x${ipad_height}+${crop_statusbar_x_offset}+${crop_statusbar_y_offset} $image_file
+done
+
+# http://www.imagemagick.org/script/escape.php
+# fileheight=`convert $image_file -format "%h" info:`
+# filewidth=`convert $image_file -format "%w" info:`
+# filenamewithoutext=`convert $image_file -format "%t" info:`
+# filenameext=`convert $image_file -format "%e" info:`
